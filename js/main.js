@@ -20,29 +20,31 @@ $('.reservation-day li').on('click', function(e){
 $('.reservation-form').on('submit', function(e) {
   e.preventDefault();
   reservationData.name = $('.reservation-name').val();
+  reservationsReference.push(reservationData);
 });
 
-  
 var reservationsReference = database.ref('reservation');
-reservationsReference.push(reservationData);
 
 function getReservations(){
 	database.ref('reservation').on('value', function(results){
 		var theReservations = results.val();
-		
+
+		var databaseItems = [];
 		for (var reservation in  theReservations) {
-			var dataContent = {
+			databaseItems.push({
         		name: theReservations[reservation].name,
         		day: theReservations[reservation].day,
         		reservationId: reservation
-      };
-
-      	var source = $('.reservation-list').html();
-      	var template = Handlebars.compile(source);
-      	var reservationListItems = template(dataContent);
-
-      	$('.reservation-list').append(reservationListItems);
+      		});
 		}
+		var templateData = {
+			items: databaseItems
+		};
+		var source = $('#reservation-template').html();
+	    var template = Handlebars.compile(source);
+	    var reservationListItems = template(templateData);
+		$('#reservation-list-render').html(reservationListItems);
+
 	});
 
 };

@@ -10,15 +10,6 @@
 
 </head>
 <body data-spy="scroll" data-target=".navbar-inverse" data-offset="50">
-
-	<!-- template for reservation-list -->
-	<script id="reservation-template" type="text/x-handlebars-template">
-		<tr>
-			<td>{{name}}</td>
-			<td>{{day}}</td>
-		</tr>
-	</script>
-
 	<!-- navbar -->
 	<div id="navbar" class="navbar-collapse navbar-inverse collapse navbar-fixed-top">
 		<a href="#" class="navbar-brand">Monk's Café</a>
@@ -59,18 +50,29 @@
 				  <button class="btn btn-default reservation-button">Set Reservation</button>
 				</form>
 			</div>
+
 		</div>
+					<div id="reservation-list-render">
+			</div>
 
 		<!-- reservations -->
-		<table class="table table-striped col-md-12 container-fluid">
-			<h4>Reservations</h4>
-			<thead>
-				<th>Name</th>
-				<th>Day</th>
-			</thead>
-			<tbody class="reservation-list">
-			</tbody>
-		</table>
+		<script id="reservation-template" type="text/x-handlebars-template">
+			<table class="table table-striped col-md-12 container-fluid">
+				<h4>Reservations</h4>
+				<thead>
+					<th>Name</th>
+					<th>Day</th>
+				</thead>
+				<tbody class="reservation-list">
+					{{#each items}}
+					<tr>
+						<td>{{name}}</td>
+						<td>{{day}}</td>
+					</tr>
+  					{{/each}}
+				</tbody>
+			</table>
+		</script>
 	</div>
 
 	<div id="map" class="container-fluid restaurant-locator">
