@@ -26,6 +26,30 @@ $('.reservation-form').on('submit', function(e) {
 var reservationsReference = database.ref('reservation');
 reservationsReference.push(reservationData);
 
+function getReservations(){
+	database.ref('reservation').on('value', function(results){
+		var theReservations = results.val();
+		
+		for (var reservation in  theReservations) {
+			var dataContent = {
+        		name: theReservations[reservation].name,
+        		day: theReservations[reservation].day,
+        		reservationId: reservation
+      };
+
+      	var source = $('.reservation-list').html();
+      	var template = Handlebars.compile(source);
+      	var reservationListItems = template(dataContent);
+
+      	$('.reservation-list').append(reservationListItems);
+		}
+	});
+
+};
+
+getReservations();
+
+
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 40.8054491, lng: -73.9654415},
