@@ -10,6 +10,12 @@ var config = {
 
 var database = firebase.database();
 
+
+$(document).ready(function()
+{
+   setInterval('updateClock()', 1000);
+});
+
 var reservationData = {};
 
 $('.reservation-day li').on('click', function(e){
